@@ -1,258 +1,159 @@
 <div id="controlPanel" class="panel panel-default panel-flex-col panel-min-width">
     <div class="panel-heading ">
-        <div class="row ">
-            <div class="col-md-12">
-                <div class="pull-left">
-                    <b><span translate>Controls</span></b>
-                </div>
-                <div class="pull-right">
-                    <div id="auto_check_control" class="panel-flex-row">
-                        <table class="checkbox">
-                            <tr>
-                                <td>&nbsp;&nbsp;</td>
-                                <td>
-                                    <label>
-                                        <input type="checkbox" id="autocheck_position" onclick="on_autocheck_position()" />
-                                        <span translate>auto-check position every:</span>
-                                    </label>
-                                </td>
-                            </tr>
-                        </table>
-                        <table class="input-group">
-                            <tr>
-                                <td>
-                                    <input class="form-control w4" type="number" min="1" max="99" id="posInterval_check" onchange="onPosIntervalChange()" />
-                                    <span class="input-group-addon form_control" translate>sec</span>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+      <button type="button" id="settings_restart_btn" class="btn btn-danger"
+              onclick="restart_esp();">
+        <svg width='1.3em' height='1.2em' viewBox='0 0 1300 1200'>
+          <g transform='translate(50,1200) scale(1, -1)'>
+            <path fill='currentColor'
+                  d='M550 1200h100q21 0 35.5 -14.5t14.5 -35.5v-400q0 -21 -14.5 -35.5t-35.5 -14.5h-100q-21 0 -35.5 14.5t-14.5 35.5v400q0 21 14.5 35.5t35.5 14.5zM800 975v166q167 -62 272 -209.5t105 -331.5q0 -117 -45.5 -224t-123 -184.5t-184.5 -123t-224 -45.5t-224 45.5 t-184.5 123t-123 184.5t-45.5 224q0 184 105 331.5t272 209.5v-166q-103 -55 -165 -155t-62 -220q0 -116 57 -214.5t155.5 -155.5t214.5 -57t214.5 57t155.5 155.5t57 214.5q0 120 -62 220t-165 155z'></path>
+          </g>
+        </svg>
+      </button>
+      <b><span>Controls</span></b>
     </div>
     <div id="control-body" class="panel-body panel-flex-main">
-        <div class="row">
-            <div id="JogUI" class="col col-md-7 col-lg-7">
-                <!-- replaceSVG --><object data="images/jogdial.svg" type="image/svg+xml"></object><!-- /replaceSVG -->
-            </div>
-            <div class="col col-lg-4 " >
-                <div id="Macro_list" class="macro-container">
-                </div>
-            </div>
-            <div class="col">
-            &nbsp;
-            </div>
-        </div>
-        <div>
-                <button class="btn btn-xs btn-default" id="zero_xyz_btn" onclick="SendZerocommand(grblzerocmd)">&Oslash;<span style="font-size:8px;" id="zero_xyz_btn_txt">XYZ</span></button>
-            </div><br>
-        <div class="position-container" id="positions_labels">
-            <div class="position_text">
-                <table>
-                    <tr>
-                        <td>
-                            <button class="btn btn-xs btn-default" id="zero_x_btn" onclick="SendZerocommand('X0')">&Oslash;</button>
-                        </td>
-                        <td>
-                            <span class="label label-default" style="padding: 5px 5px 3px 5px;"><span id="control_x_position_label">X</span>:<span id="control_x_position">&nbsp;</span></span>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                    <tr id="control_xm_position_row">
-                        <td></td>
-                        <td>
-                            <table>
-                                <tr style="height: 5px;">
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="label label-default" style="padding: 5px 5px 3px 5px;"><span id="control_xm_position_label">Xm</span>:<span id="control_xm_position">&nbsp;</span></span>
-                        </td>
-                    </tr>
-                </table>
-                </td>
-                </tr>
-                </table>
-            </div>
-            <div class="position_text">
-                <table>
-                    <tr>
-                        <td>
-                            <button class="btn btn-xs btn-default" id="zero_y_btn" onclick="SendZerocommand('Y0')">&Oslash;</button>
-                        </td>
-                        <td>
-                            <span class="label label-default" style="padding: 5px 5px 3px 5px;"><span id="control_y_position_label">Y</span>:<span id="control_y_position">&nbsp;</span></span>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                    <tr id="control_ym_position_row">
-                        <td></td>
-                        <td>
-                            <table>
-                                <tr style="height: 5px;">
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="label label-default" style="padding: 5px 5px 3px 5px;"><span id="control_yt_position_label">Ym</span>:<span id="control_ym_position">&nbsp;</span></span>
-                        </td>
-                    </tr>
-                </table>
-                </td>
-                </tr>
-                </table>
-            </div>
-            <div class="position_text" id="control_z_position_display">
-                <table>
-                    <tr>
-                        <td>
-                            <button class="btn btn-xs btn-default" id="zero_z_btn" onclick="SendZerocommand('Z0')">&Oslash;</button>
-                        </td>
-                        <td>
-                            <span class="label label-default" style="padding: 5px 5px 3px 5px;"><span id="control_z_position_label">Z</span>:<span id="control_z_position">&nbsp;</span></span>
-                        </td>
-                    </tr>
-                    <tr id="control_zm_position_row">
-                        <td></td>
-                        <td>
-                            <table>
-                                <tr style="height: 5px;">
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="label label-default" style="padding: 5px 5px 3px 5px;"><span id="control_zm_position_label">Zm</span>:<span id="control_zm_position">&nbsp;</span></span>
-                        </td>
-                    </tr>
-                </table>
-                </td>
-                </tr>
-                </table>
-            </div>
-        </div>
-        <br>
-        <div class="position-container hide_it" id="positions_labels2">
-            <div class="position_text hide_it" id="control_a_position_display">
-                <table>
-                    <tr>
-                        <td>
-                            <button class="btn btn-xs btn-default" id="zero_a_btn" onclick="SendZerocommand('A0')">&Oslash;</button>
-                        </td>
-                        <td>
-                            <span class="label label-default" style="padding: 5px 5px 3px 5px;"><span id="control_a_position_label">Aw</span>:<span id="control_a_position">&nbsp;</span></span>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                    <tr id="control_am_position_row">
-                        <td></td>
-                        <td>
-                            <table>
-                                <tr style="height: 5px;">
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="label label-default" style="padding: 5px 5px 3px 5px;"><span id="control_am_position_label">Am</span>:<span id="control_am_position">&nbsp;</span></span>
-                        </td>
-                    </tr>
-                </table>
-                </td>
-                </tr>
-                </table>
-            </div>
-            <div class="position_text hide_it" id="control_b_position_display">
-                <table>
-                    <tr>
-                        <td>
-                            <button class="btn btn-xs btn-default" id="zero_b_btn" onclick="SendZerocommand('B0')">&Oslash;</button>
-                        </td>
-                        <td>
-                            <span class="label label-default" style="padding: 5px 5px 3px 5px;"><span id="control_b_position_label">Bw</span>:<span id="control_b_position">&nbsp;</span></span>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                    <tr id="control_bm_position_row">
-                        <td></td>
-                        <td>
-                            <table>
-                                <tr style="height: 5px;">
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="label label-default" style="padding: 5px 5px 3px 5px;"><span id="control_bt_position_label">Bm</span>:<span id="control_bm_position">&nbsp;</span></span>
-                        </td>
-                    </tr>
-                </table>
-                </td>
-                </tr>
-                </table>
-            </div>
-            <div class="position_text hide_it" id="control_c_position_display">
-                <table>
-                    <tr>
-                        <td>
-                            <button class="btn btn-xs btn-default" id="zero_c_btn" onclick="SendZerocommand('C0')">&Oslash;</button>
-                        </td>
-                        <td>
-                            <span class="label label-default" style="padding: 5px 5px 3px 5px;"><span id="control_c_position_label">Cw</span>:<span id="control_c_position">&nbsp;</span></span>
-                        </td>
-                    </tr>
-                    <tr id="control_zm_position_row">
-                        <td></td>
-                        <td>
-                            <table>
-                                <tr style="height: 5px;">
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="label label-default" style="padding: 5px 5px 3px 5px;"><span id="control_cm_position_label">Cm</span>:<span id="control_cm_position">&nbsp;</span></span>
-                        </td>
-                    </tr>
-                </table>
-                </td>
-                </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="panel-footer">
-        <div class="panel-flex-row">
+      <table width="100%">
+        <tr>
+          <td class="td_center">
+            <table>
+              <tr>
+                <td>
+                  <button id="clear_status_btn" class="btn btn-default btn-xs hide-it tooltip"
+                          onclick="SendPrinterCommand('$X', true, null,null, 114, 1);"
+                          style="padding: 5px 5px 0 5px;">
+                    <span class="tooltip-text">Clear Alarm</span>
 
-            <table class="input-group">
-                <tr>
-                    <td>
-                        <span class="input-group-addon form_control">XY:</span>
-                        <input class="hide_it"></input>
-                    </td>
-                    <td>
-                        <span class="input-group-addon hide_it"></span>
-                        <input class="form-control w8" type="number" min="1" id="control_xy_velocity" onchange="onXYvelocityChange()" />
-                        <span class="input-group-addon form_control" translate>mm/min</span>
-                    </td>
-                </tr>
+                    <svg width="2em" height="1.8em" viewBox="-200 -200 1700 1600">
+                      <g transform="translate(50,1200) scale(1, -1)">
+                        <path fill="black"
+                              d="M553 1200h94q20 0 29 -10.5t3 -29.5l-18 -37q83 -19 144 -82.5t76 -140.5l63 -327l118 -173h17q19 0 33 -14.5t14 -35t-13 -40.5t-31 -27q-8 -4 -23 -9.5t-65 -19.5t-103 -25t-132.5 -20t-158.5 -9q-57 0 -115 5t-104 12t-88.5 15.5t-73.5 17.5t-54.5 16t-35.5 12l-11 4 q-18 8 -31 28t-13 40.5t14 35t33 14.5h17l118 173l63 327q15 77 76 140t144 83l-18 32q-6 19 3.5 32t28.5 13zM498 110q50 -6 102 -6q53 0 102 6q-12 -49 -39.5 -79.5t-62.5 -30.5t-63 30.5t-39 79.5z"></path>
+                        <circle cx="600" cy="600" r="700" stroke="red" stroke-width="100"
+                                fill="none"></circle>
+                        <line x1="106" y1="106" x2="1094" y2="1094" stroke="red"
+                              stroke-width="100"></line>
+                      </g>
+                    </svg>
+                  </button>
+                </td>
+                <td style="text-align: left; width:100%;height:30px;">
+                  <div id="grbl_status" class="status_text"></div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" style="text-align: left; height:20px;" id="grbl_status_text"></td>
+              </tr>
             </table>
-
-            &nbsp;
-            <table id="z_velocity_display" class="input-group">
-                <tr>
-                    <td >
-                        <span class="input-group-addon form_control" id="axis_label">Z:</span>
-                        <input class="hide_it"></input>
-                    </td>
-                    <td class="hide_it" id="axis_selection">
-                    </td>
-                    <td>
-                        <span class="input-group-addon hide_it"></span>
-                        <input class="form-control w5" type="number" min="1" id="control_z_velocity" onchange="onZvelocityChange()" />
-                        <span class="input-group-addon form_control" translate>mm/min</span>
-                    </td>
-                </tr>
+          </td>
+          <td>
+            <table>
+              <tr>
+                <td style="width:100%;height:2em;"></td>
+                <td>
+                  <button id="sd_pause_btn" class="btn btn-default hide_it"
+                          onclick="SendRealtimeCmd(0x21);" style="padding: 5px 4px 0 5px;">
+                    <svg width="2em" height="1.4em" viewBox="0 0 1300 1200">
+                      <g transform="translate(50,1200) scale(1, -1)">
+                        <path fill="blue"
+                              d="M250 1000h200q21 0 35.5 -14.5t14.5 -35.5v-800q0 -21 -14.5 -35.5t-35.5 -14.5h-200q-21 0 -35.5 14.5t-14.5 35.5v800q0 21 14.5 35.5t35.5 14.5zM650 1000h200q21 0 35.5 -14.5t14.5 -35.5v-800q0 -21 -14.5 -35.5t-35.5 -14.5h-200q-21 0 -35.5 14.5t-14.5 35.5v800 q0 21 14.5 35.5t35.5 14.5z"></path>
+                      </g>
+                    </svg>
+                  </button>
+                </td>
+                <td>
+                  &nbsp;
+                </td>
+                <td>
+                  <button id="sd_resume_btn" class="btn btn-default hide_it"
+                          onclick="SendRealtimeCmd(0x7e);" style="padding: 5px 4px 0 5px;">
+                    <svg width="2em" height="1.4em" viewBox="0 0 1300 1200">
+                      <g transform="translate(50,1200) scale(1, -1)">
+                        <path fill="green"
+                              d="M243 1074l814 -498q18 -11 18 -26t-18 -26l-814 -498q-18 -11 -30.5 -4t-12.5 28v1000q0 21 12.5 28t30.5 -4z"></path>
+                      </g>
+                    </svg>
+                  </button>
+                </td>
+                <td>
+                  &nbsp;
+                </td>
+                <td>
+                  <button id="sd_reset_btn" class="btn btn-danger hide_it" onclick="grbl_reset();"
+                          style="padding: 5px 0px 0px 0px;">
+                    <svg width="2em" height="1.4em" viewBox="0 0 1200 1200">
+                      <g transform="translate(1200,1200) scale(-1, -1)">
+                        <path fill="white"
+                              d="M947 1060l135 135q7 7 12.5 5t5.5 -13v-362q0 -10 -7.5 -17.5t-17.5 -7.5h-362q-11 0 -13 5.5t5 12.5l133 133q-109 76 -238 76q-116 0 -214.5 -57t-155.5 -155.5t-57 -214.5t57 -214.5t155.5 -155.5t214.5 -57t214.5 57t155.5 155.5t57 214.5h150q0 -117 -45.5 -224 t-123 -184.5t-184.5 -123t-224 -45.5t-224 45.5t-184.5 123t-123 184.5t-45.5 224t45.5 224t123 184.5t184.5 123t224 45.5q192 0 347 -117z"></path>
+                      </g>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
             </table>
-
-            &nbsp;
-            <button id='motor_off_control' class="btn btn-primary" onclick="control_motorsOff()" translate>Motors off</button>
+          </td>
+        </tr>
+        <tr>
+          <td colspan=2 class="td_center">
+            <center>
+              <div id="grbl_SD_status"></div>
+            </center>
+          </td>
+        </tr>
+      </table>
+      <div class="row">
+        <div id="JogUI" class="col col-md-7 col-lg-7">
+          <!-- replaceSVG --><object data="images/jogdial.svg" type="image/svg+xml"></object><!-- /replaceSVG -->
         </div>
+        <div class="col">
+          &nbsp;
+        </div>
+      </div>
+      <br>
+      <div class="position-container" id="positions_labels">
+        <div class="position_text">
+          <table>
+            <tr>
+              <td>
+                <button class="btn btn-xs btn-default" id="zero_x_btn"
+                        onclick="SendZerocommand('X0')">&Oslash;
+                </button>
+              </td>
+              <td>X</td>
+              <td>:</td>
+              <td><span id="control_x_position"></td>
+            </tr>
+            <tr id="control_xm_position_row">
+              <td></td>
+              <td>Xm</td>
+              <td>:</td>
+              <td><span id="control_xm_position">&nbsp;</span></td>
+            </tr>
+            <tr id="rpm">
+              <td></td>
+              <td>RPM</td>
+              <td>:</td>
+              <td><span id="synchro_rpm">&nbsp;</span></td>
+            </tr>
+            <tr id="feed">
+              <td></td>
+              <td>Pitch</td>
+              <td>:</td>
+              <td><span id="synchro_pitch">&nbsp;</span></td>
+            </tr>
+          </table>
+        </div>
+      </div>
     </div>
+
+  <div class="panel-footer">
+    <div class="panel-flex-row">
+      <form autocomplete="off" onsubmit="return false;" style="flex-grow: 1;">
+        <input autocomplete="off" class="form-control w14" type="text"
+               onkeyup="CustomCommand_OnKeyUp(event)" value="" id="custom_cmd_txt" translateph
+               placeholder="Send Command..."/>
+      </form>
+      <div class="input-group-btn">
+        <button class="btn btn-success" onclick="SendCustomCommand();" translate>Send</button>
+      </div>
+    </div>
+  </div>
 </div>

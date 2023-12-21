@@ -568,14 +568,10 @@ function tabletGrblState(grbl, response) {
     var digits = modal.units == 'G20' ? 4 : 2;
 
     if (WPOS) {
-        WPOS.forEach( function(pos, index) {
-            setTextContent('wpos-'+axisNames[index], Number(pos*factor).toFixed(index > 2 ? 2 : digits));
-        });
+        setTextContent('wpos-x', Number(WPOS[0]*factor).toFixed(digits));
     }
 
-    MPOS.forEach( function(pos, index) {
-        setTextContent('mpos-'+axisNames[index], Number(pos*factor).toFixed(index > 2 ? 2 : digits));
-    });
+    setTextContent('mpos-x', Number(MPOS[0]*factor).toFixed(digits));
 }
 
 function addOption(selector, name, value, isDisabled, isSelected) {

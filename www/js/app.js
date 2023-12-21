@@ -293,27 +293,27 @@ function Disable_interface(lostconnection) {
 function update_UI_firmware_target() {
     var fwName;
     initpreferences();
-    id('control_x_position_label').innerHTML = "X";
-    id('control_y_position_label').innerHTML = "Y";
-    id('control_z_position_label').innerHTML = "Z";
-    showAxiscontrols();
+    // id('control_x_position_label').innerHTML = "X";
+    // id('control_y_position_label').innerHTML = "Y";
+    // id('control_z_position_label').innerHTML = "Z";
+    // showAxiscontrols();
 
     fwName = "FluidNC";
     last_grbl_pos = "";
     displayNone('configtablink');
-    displayNone('auto_check_control');
+    // displayNone('auto_check_control');
     displayNone('progress_btn');
     displayNone('abort_btn');
-    displayNone('motor_off_control');
+    // displayNone('motor_off_control');
     id('tab_title_configuration').innerHTML = "<span translate>GRBL configuration</span>";
     id('tab_printer_configuration').innerHTML = "<span translate>GRBL</span>";
     id('files_input_file').accept = " .g, .gco, .gcode, .txt, .ncc, .G, .GCO, .GCODE, .TXT, .NC";
-    displayInitial('zero_xyz_btn');
+    // displayInitial('zero_xyz_btn');
     displayInitial('zero_x_btn');
-    displayInitial('zero_y_btn');
+    // displayInitial('zero_y_btn');
     if (grblaxis >2) {
         //displayInitial('control_z_position_display');
-        id('control_z_position_label').innerHTML = "Zw";
+        // id('control_z_position_label').innerHTML = "Zw";
     } else {
         hideAxiscontrols();
         displayNone('preferences_control_z_velocity_group');
@@ -333,17 +333,17 @@ function update_UI_firmware_target() {
         displayBlock('preferences_control_b_velocity_group');
     }
     if (grblaxis >5) {
-        displayBlock('control_c_position_display');
-        id('zero_xyz_btn_txt').innerHTML +="C";
-        displayBlock('preferences_control_c_velocity_group');
+        // displayBlock('control_c_position_display');
+        // id('zero_xyz_btn_txt').innerHTML +="C";
+        // displayBlock('preferences_control_c_velocity_group');
     } else {
-        displayNone('control_c_position_display');
+        // displayNone('control_c_position_display');
     }
     displayFlex('grblPanel');
     // id('FW_github').href = 'https://github.com/bdring/FluidNC';
     displayBlock('settings_filters');
-    id('control_x_position_label').innerHTML = "Xw";
-    id('control_y_position_label').innerHTML = "Yw";
+    // id('control_x_position_label').innerHTML = "Xw";
+    // id('control_y_position_label').innerHTML = "Yw";
 
     EP_HOSTNAME = "Hostname";
     EP_STA_SSID = "Sta/SSID";

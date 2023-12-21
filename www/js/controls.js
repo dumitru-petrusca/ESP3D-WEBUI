@@ -63,12 +63,10 @@ function Macro_build_list(response_text) {
         }
         control_macrolist.push(entry);
     }
-    control_build_macro_ui();
+    // control_build_macro_ui();
 }
 
 function processMacroGetSuccess(response) {
-    if (response.indexOf("<HTML>") == -1) Macro_build_list(response);
-    else Macro_build_list("");
 }
 
 function processMacroGetFailed(errorcode, response) {
@@ -161,7 +159,7 @@ function SendHomecommand(cmd) {
 }
 
 function SendZerocommand(cmd) {
-    var command = "G10 L20 P0 " + cmd;
+    var command = "G10 L20" + cmd;
     SendPrinterCommand(command, true, get_Position);
 }
 
@@ -177,30 +175,8 @@ function JogFeedrate(axis) {
 
 function SendJogcommand(cmd, feedrate) {
     if (id('lock_UI').checked) return;
-    var feedratevalue = "";
-    var command = "";
-    if (feedrate == "XYfeedrate") {
-        feedratevalue = parseInt(id('control_xy_velocity').value);
-        if (feedratevalue < 1 || isNaN(feedratevalue) || (feedratevalue === null)) {
-            alertdlg(translate_text_item("Out of range"), translate_text_item("XY Feedrate value must be at least 1 mm/min!"));
-            id('control_xy_velocity').value = preferenceslist[0].xy_feedrate;
-            return;
-        }
-    } else {
-        feedratevalue = parseInt(id('control_z_velocity').value);
-        if (feedratevalue < 1 || isNaN(feedratevalue) || (feedratevalue === null)) {
-            var letter = "Z";
-            if (grblaxis > 3) letter = "Axis";
-            alertdlg(translate_text_item("Out of range"), translate_text_item( letter +" Feedrate value must be at least 1 mm/min!"));
-            id('control_z_velocity').value = preferenceslist[0].z_feedrate;
-            return;
-        }
-    }
-    if(grblaxis > 3){
-        var letter = id('control_select_axis').value;
-        cmd = cmd.replace("Z", letter);
-    }
-    command = "$J=G91 G21 F" + feedratevalue + " " + cmd;
+    var feedratevalue = "100";  //TODO
+    var command = "$J=G91 G21 F" + feedratevalue + " " + cmd;
     console.log(command);
     SendPrinterCommand(command, true, get_Position);
 }
