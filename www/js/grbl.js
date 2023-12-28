@@ -2,7 +2,7 @@ var interval_status = -1;
 var probe_progress_status = 0;
 var grbl_error_msg = '';
 var WCO = undefined;
-var OVR = { feed: undefined, rapid: undefined, spindle: undefined };
+var OVR = {feed: undefined, rapid: undefined, spindle: undefined};
 var MPOS = [0, 0, 0];
 var WPOS = [0, 0, 0];
 var grblaxis = 3;
@@ -12,49 +12,58 @@ var last_axis_letter = 'Z';
 
 var axisNames = ['x', 'y', 'z', 'a', 'b', 'c'];
 
-var modal = { modes: "", plane: 'G17', units: 'G21', wcs: 'G54', distance: 'G90' };
+var modal = {modes: "", plane: 'G17', units: 'G21', wcs: 'G54', distance: 'G90'};
 
 function setClickability(element, visible) {
     setDisplay(element, visible ? 'table-row' : 'none');
 }
 
 var autocheck = 'report_auto';
+
 function getAutocheck() {
     return getChecked(autocheck);
 }
+
 function setAutocheck(flag) {
     setChecked(autocheck, flag);
 }
 
-function build_axis_selection(){
+function build_axis_selection() {
     var html = "<select class='form-control wauto' id='control_select_axis' onchange='control_changeaxis()' >";
     for (var i = 3; i <= grblaxis; i++) {
         var letter;
-        if (i == 3) letter = "Z";
-        else if (i == 4) letter = "A";
-        else if (i == 5) letter = "B";
-        else if (i == 6) letter = "C";
+        if (i == 3) {
+            letter = "Z";
+        } else if (i == 4) {
+            letter = "A";
+        } else if (i == 5) {
+            letter = "B";
+        } else if (i == 6) {
+            letter = "C";
+        }
         html += "<option value='" + letter + "'";
-        if (i == 3) html += " selected ";
+        if (i == 3) {
+            html += " selected ";
+        }
         html += ">";
         html += letter;
         html += "</option>\n";
     }
 
     html += "</select>\n";
-    if(grblaxis > 3) {
+    if (grblaxis > 3) {
         setHTML("axis_selection", html);
         setHTML("axis_label", translate_text_item("Axis") + ":");
         setClickability("axis_selection", true)
     }
 }
 
-function control_changeaxis(){
+function control_changeaxis() {
     var letter = getValue('control_select_axis');
-    setHTML('axisup', '+'+letter);
-    setHTML('axisdown', '-'+letter);
-    setHTML('homeZlabel', ' '+letter+' ');
-    switch(last_axis_letter) {
+    setHTML('axisup', '+' + letter);
+    setHTML('axisdown', '-' + letter);
+    setHTML('homeZlabel', ' ' + letter + ' ');
+    switch (last_axis_letter) {
         case 'Z':
             axis_feedrate[2] = getValue('control_z_velocity');
             break;
@@ -68,9 +77,9 @@ function control_changeaxis(){
             axis_feedrate[5] = getValue('control_c_velocity');
             break;
     }
-    
+
     last_axis_letter = letter;
-    switch(last_axis_letter) {
+    switch (last_axis_letter) {
         case 'Z':
             setValue('control_z_velocity', axis_feedrate[2]);
             break;
@@ -85,7 +94,6 @@ function control_changeaxis(){
             break;
     }
 }
-
 
 function init_grbl_panel() {
     grbl_set_probe_detected(false);
@@ -168,7 +176,7 @@ function enablePolling() {
         if (interval_status != -1) {
             clearInterval(interval_status);
         }
-        interval_status = setInterval(function() {
+        interval_status = setInterval(function () {
             get_status()
         }, interval * 1000);
         reportType = 'polled';
@@ -193,17 +201,19 @@ function tryAutoReport() {
     }
     setChecked('report_auto', true);
     reportType = 'auto';
-    SendPrinterCommand("$Report/Interval="+interval, true,
-                       // Do nothing more on success
-                       function() {},
+    SendPrinterCommand("$Report/Interval=" + interval, true,
+        // Do nothing more on success
+        function () {
+        },
 
-                       // Fall back to polling if the firmware does not support auto-reports
-                       function() {    
-                           enablePolling();
-                       },
+        // Fall back to polling if the firmware does not support auto-reports
+        function () {
+            enablePolling();
+        },
 
-                       99.1, 1);
+        99.1, 1);
 }
+
 function onAutoReportIntervalChange() {
     tryAutoReport();
 }
@@ -247,7 +257,6 @@ function onReportType(e) {
     }
 }
 
-
 function onstatusIntervalChange() {
     enablePolling();
 }
@@ -274,13 +283,13 @@ function parseGrblStatus(response) {
         mist: undefined,
         pins: undefined
     };
-    response = response.replace('<','').replace('>','');
+    response = response.replace('<', '').replace('>', '');
     var fields = response.split('|');
-    fields.forEach(function(field) {
+    fields.forEach(function (field) {
         var tv = field.split(':');
         var tag = tv[0];
         var value = tv[1];
-        switch(tag) {
+        switch (tag) {
             case "Door":
                 grbl.stateName = tag;
                 grbl.message = field;
@@ -303,13 +312,19 @@ function parseGrblStatus(response) {
                 grbl.lineNumber = parseInt(value);
                 break;
             case "MPos":
-                grbl.mpos = value.split(',').map( function(v) { return parseFloat(v); } );
+                grbl.mpos = value.split(',').map(function (v) {
+                    return parseFloat(v);
+                });
                 break;
             case "WPos":
-                grbl.wpos = value.split(',').map( function(v) { return parseFloat(v); } );
+                grbl.wpos = value.split(',').map(function (v) {
+                    return parseFloat(v);
+                });
                 break;
             case "WCO":
-                grbl.wco = value.split(',').map( function(v) { return parseFloat(v); } );
+                grbl.wco = value.split(',').map(function (v) {
+                    return parseFloat(v);
+                });
                 break;
             case "FS":
                 var rates = value.split(',');
@@ -327,7 +342,7 @@ function parseGrblStatus(response) {
             case "A":
                 grbl.spindleDirection = 'M5';
                 Array.from(value).forEach(
-                    function(v) {
+                    function (v) {
                         switch (v) {
                             case 'S':
                                 grbl.spindleDirection = 'M3';
@@ -368,7 +383,7 @@ function clickableFromStateName(state, hasSD) {
         pause: false,
         reset: false
     }
-    switch(state) {
+    switch (state) {
         case 'Run':
             clickable.pause = true;
             clickable.reset = true;
@@ -395,13 +410,13 @@ function clickableFromStateName(state, hasSD) {
 
 function show_grbl_position(wpos, mpos) {
     if (wpos) {
-        wpos.forEach(function(pos, axis) {
-            var element =  'control_' + axisNames[axis] + '_position';
+        wpos.forEach(function (pos, axis) {
+            var element = 'control_' + axisNames[axis] + '_position';
             setHTML(element, pos.toFixed(3));
         });
     }
     if (mpos) {
-        mpos.forEach(function(pos, axis) {
+        mpos.forEach(function (pos, axis) {
             var element = 'control_' + axisNames[axis] + 'm_position';
             setHTML(element, pos.toFixed(3));
         });
@@ -474,12 +489,16 @@ function grblProcessStatus(response) {
     if (grbl.mpos) {
         MPOS = grbl.mpos;
         if (WCO) {
-            WPOS = grbl.mpos.map( function(v,index) { return v - WCO[index]; } );
+            WPOS = grbl.mpos.map(function (v, index) {
+                return v - WCO[index];
+            });
         }
     } else if (grbl.wpos) {
         WPOS = grbl.wpos;
         if (WCO) {
-            MPOS = grbl.wpos.map( function(v,index) { return v + WCO[index]; } );
+            MPOS = grbl.wpos.map(function (v, index) {
+                return v + WCO[index];
+            });
         }
     }
 
@@ -491,8 +510,9 @@ function grblProcessStatus(response) {
 }
 
 function grbl_reset() {
-    if (probe_progress_status != 0)
+    if (probe_progress_status != 0) {
         probe_failed_notification();
+    }
     SendRealtimeCmd(0x18);
 }
 
@@ -502,7 +522,7 @@ function grblGetProbeResult(response) {
         var status = tab1[2].replace("]", "");
         if (parseInt(status.trim()) == 1) {
             if (probe_progress_status != 0) {
-                var cmd = "$J=G90 G21 F1000 Z" + (parseFloat(getValue('probetouchplatethickness')) +                                                       parseFloat(getValue('proberetract')));
+                var cmd = "$J=G90 G21 F1000 Z" + (parseFloat(getValue('probetouchplatethickness')) + parseFloat(getValue('proberetract')));
                 SendPrinterCommand(cmd, true, null, null, 0, 1);
                 finalize_probing();
             }
@@ -517,19 +537,20 @@ function probe_failed_notification() {
     alertdlg(translate_text_item("Error"), translate_text_item("Probe failed !"));
     beep(70, 261);
 }
+
 var modalModes = [
-    { name: 'motion', values: [ "G80",  "G0",  "G1",  "G2",  "G3",  "G38.1",  "G38.2",  "G38.3",  "G38.4"] },
-    { name: 'wcs', values: [ "G54", "G55", "G56", "G57", "G58", "G59"] },
-    { name: 'plane', values: [ "G17", "G18", "G19"] },
-    { name: 'units', values: [ "G20", "G21"] },
-    { name: 'distance', values: [ "G90", "G91"] },
-    { name: 'arc_distance', values: [ "G90.1", "G91.1"] },
-    { name: 'feed', values: [ "G93", "G94"] },
-    { name: 'program', values: [ "M0", "M1", "M2", "M30"] },
-    { name: 'spindle', values: [ "M3", "M4", "M5"] },
-    { name: 'mist', values: [ "M7"] },  // Also M9, handled separately
-    { name: 'flood', values: [ "M8"] }, // Also M9, handled separately
-    { name: 'parking', values: [ "M56"] }
+    {name: 'motion', values: ["G80", "G0", "G1", "G2", "G3", "G38.1", "G38.2", "G38.3", "G38.4"]},
+    {name: 'wcs', values: ["G54", "G55", "G56", "G57", "G58", "G59"]},
+    {name: 'plane', values: ["G17", "G18", "G19"]},
+    {name: 'units', values: ["G20", "G21"]},
+    {name: 'distance', values: ["G90", "G91"]},
+    {name: 'arc_distance', values: ["G90.1", "G91.1"]},
+    {name: 'feed', values: ["G93", "G94"]},
+    {name: 'program', values: ["M0", "M1", "M2", "M30"]},
+    {name: 'spindle', values: ["M3", "M4", "M5"]},
+    {name: 'mist', values: ["M7"]},  // Also M9, handled separately
+    {name: 'flood', values: ["M8"]}, // Also M9, handled separately
+    {name: 'parking', values: ["M56"]}
 ];
 
 function grblGetModal(msg) {
@@ -537,7 +558,7 @@ function grblGetModal(msg) {
     var modes = modal.modes.split(' ');
     modal.parking = undefined;  // Otherwise there is no way to turn it off
     modal.program = '';  // Otherwise there is no way to turn it off
-    modes.forEach(function(mode) {
+    modes.forEach(function (mode) {
         if (mode == 'M9') {
             modal.flood = mode;
             modal.mist = mode;
@@ -549,8 +570,8 @@ function grblGetModal(msg) {
             } else if (mode.charAt(0) === 'S') {
                 modal.spindle = mode.substring(1);
             } else {
-                modalModes.forEach(function(modeType) {
-                    modeType.values.forEach(function(s) {
+                modalModes.forEach(function (modeType) {
+                    modeType.values.forEach(function (s) {
                         if (mode == s) {
                             modal[modeType.name] = mode;
                         }
@@ -712,9 +733,11 @@ function StartProbeProcess() {
 var spindleSpeedSetTimeout;
 var spindleTabSpindleSpeed = 1;
 
-function setSpindleSpeed(speed){
-    if(spindleSpeedSetTimeout) clearTimeout(spindleSpeedSetTimeout)
-    if(speed >= 1) {
+function setSpindleSpeed(speed) {
+    if (spindleSpeedSetTimeout) {
+        clearTimeout(spindleSpeedSetTimeout)
+    }
+    if (speed >= 1) {
         spindleTabSpindleSpeed = speed
         spindleSpeedSetTimeout = setTimeout(() => SendPrinterCommand('S' + spindleTabSpindleSpeed, false, null, null, 1, 1), 500)
     }

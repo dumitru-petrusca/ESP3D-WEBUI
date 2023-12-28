@@ -11,7 +11,7 @@ function refreshSettings(hide_setting_list) {
         id('config_status').innerHTML = translate_text_item("Communication locked by another process, retry later.");
         return;
     }
-    do_not_build_settings = typeof hide_setting_list == 'undefined' ?false : !hide_setting_list;
+    do_not_build_settings = typeof hide_setting_list == 'undefined' ? false : !hide_setting_list;
 
     displayBlock('settings_loader');
     displayNone('settings_list_content');
@@ -34,14 +34,18 @@ function build_select_flag_for_setting_list(i, j) {
     html += "<option value='1'";
     var tmp = scl[i].defaultvalue;
     tmp |= getFlag(i, j);
-    if (tmp == defval(i)) html += " selected ";
+    if (tmp == defval(i)) {
+        html += " selected ";
+    }
     html += ">";
     html += translate_text_item("Disable", true);
     html += "</option>\n";
     html += "<option value='0'";
     var tmp = defval(i);
     tmp &= ~(getFlag(i, j));
-    if (tmp == defval(i)) html += " selected ";
+    if (tmp == defval(i)) {
+        html += " selected ";
+    }
     html += ">";
     html += translate_text_item("Enable", true);
     html += "</option>\n";
@@ -55,11 +59,15 @@ function build_select_for_setting_list(i, j) {
     var html = "<select class='form-control input-min wauto' id='setting_" + i + "_" + j + "' onchange='setting_checkchange(" + i + "," + j + ")' >";
     for (var oi = 0; oi < scl[i].Options.length; oi++) {
         html += "<option value='" + scl[i].Options[oi].id + "'";
-        if (scl[i].Options[oi].id == defval(i)) html += " selected ";
+        if (scl[i].Options[oi].id == defval(i)) {
+            html += " selected ";
+        }
         html += ">";
         html += translate_text_item(scl[i].Options[oi].display, true);
         //Ugly workaround for OSX Chrome and Safari
-        if (browser_is("MacOSX")) html += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        if (browser_is("MacOSX")) {
+            html += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        }
         html += "</option>\n";
     }
     html += "</select>\n";
@@ -84,6 +92,7 @@ function update_UI_setting() {
         }
     }
 }
+
 //to generate setting editor in setting or setup
 function build_control_from_index(i, extra_set_function) {
     var content = "<table>";
@@ -125,7 +134,8 @@ function build_control_from_index(i, extra_set_function) {
             } else {
                 //text
                 input_type = defval(i).startsWith("******") ? "password" : "text";
-                content += "<form><input id='setting_" + i + "_" + j + "' type='" + input_type + "' class='form-control input-min'  value='" + defval(i) + "' onkeyup='setting_checkchange(" + i + "," + j + ")' ></form>";
+                content += "<form><input id='setting_" + i + "_" + j + "' type='" + input_type + "' class='form-control input-min'  value='" + defval(i)
+                    + "' onkeyup='setting_checkchange(" + i + "," + j + ")' ></form>";
             }
             content += "<span id='icon_setting_" + i + "_" + j + "'class='form-control-feedback ico_feedback'></span>";
             content += "<span class='input-group-addon hide_it' ></span>";
@@ -171,14 +181,16 @@ function build_control_from_pos(pos, extra) {
 
 function build_HTML_setting_list(filter) {
     //this to prevent concurent process to update after we clean content
-    if (do_not_build_settings) return;
+    if (do_not_build_settings) {
+        return;
+    }
     var content = "";
     current_setting_filter = filter;
     id(current_setting_filter + "_setting_filter").checked = true;
 
     for (var i = 0; i < scl.length; i++) {
         fname = scl[i].F.trim().toLowerCase();
-        if (fname == 'network' || fname == filter || filter == "all" ) {
+        if (fname == 'network' || fname == filter || filter == "all") {
             content += "<tr>";
             content += "<td style='vertical-align:middle'>";
             content += translate_text_item(scl[i].label, true);
@@ -196,33 +208,57 @@ function setting_check_value(value, i) {
     var valid = true;
     var entry = scl[i];
     //console.log("checking value");
-    if (entry.type == "F") return valid;
+    if (entry.type == "F") {
+        return valid;
+    }
     //does it part of a list?
     if (entry.Options.length > 0) {
         var in_list = false;
         for (var oi = 0; oi < entry.Options.length; oi++) {
             //console.log("checking *" + entry.Options[oi].id + "* and *"+ value + "*" );
-            if (entry.Options[oi].id == value) in_list = true;
+            if (entry.Options[oi].id == value) {
+                in_list = true;
+            }
         }
         valid = in_list;
-        if (!valid) setting_error_msg = " in provided list";
+        if (!valid) {
+            setting_error_msg = " in provided list";
+        }
     }
     //check byte / integer
     if (entry.type == "B" || entry.type == "I") {
         //cannot be empty
         value.trim();
-        if (value.length == 0) valid = false;
+        if (value.length == 0) {
+            valid = false;
+        }
         //check minimum?
-        if (parseInt(entry.min_val) > parseInt(value)) valid = false;
+        if (parseInt(entry.min_val) > parseInt(value)) {
+            valid = false;
+        }
         //check maximum?
-        if (parseInt(entry.max_val) < parseInt(value)) valid = false;
-        if (!valid) setting_error_msg = " between " + entry.min_val + " and " + entry.max_val;
-        if (isNaN(value)) valid = false;
+        if (parseInt(entry.max_val) < parseInt(value)) {
+            valid = false;
+        }
+        if (!valid) {
+            setting_error_msg = " between " + entry.min_val + " and " + entry.max_val;
+        }
+        if (isNaN(value)) {
+            valid = false;
+        }
     } else if (entry.type == "S") {
-        if (entry.min_val > value.length) valid = false;
-        if (entry.max_val < value.length) valid = false;
-        if (value == "********") valid = false;
-        if (!valid) setting_error_msg = " between " + entry.min_val + " char(s) and " + entry.max_val + " char(s) long, and not '********'";
+        if (entry.min_val > value.length) {
+            valid = false;
+        }
+        if (entry.max_val < value.length) {
+            valid = false;
+        }
+        if (value == "********") {
+            valid = false;
+        }
+        if (!valid) {
+            setting_error_msg = " between " + entry.min_val + " char(s) and " + entry.max_val + " char(s) long, and not '********'";
+        }
     } else if (entry.type == "A") {
         //check ip address
         var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
@@ -250,10 +286,16 @@ function process_settings_answer(response_text) {
 
                 }
                 if (vi > 0) {
-                    if (setup_is_done) build_HTML_setting_list(current_setting_filter);
+                    if (setup_is_done) {
+                        build_HTML_setting_list(current_setting_filter);
+                    }
                     update_UI_setting();
-                } else result = false;
-            } else result = false;
+                } else {
+                    result = false;
+                }
+            } else {
+                result = false;
+            }
         }
     } catch (e) {
         console.error("Parsing error:", e);
@@ -263,7 +305,9 @@ function process_settings_answer(response_text) {
 }
 
 function create_setting_entry(sentry, vi) {
-    if (!is_setting_entry(sentry)) return vi;
+    if (!is_setting_entry(sentry)) {
+        return vi;
+    }
     var slabel = sentry.H;
     var svalue = sentry.V;
     var scmd = "[ESP401]P=" + sentry.P + " T=" + sentry.T + " V=";
@@ -273,18 +317,28 @@ function create_setting_entry(sentry, vi) {
     if (typeof sentry.M !== 'undefined') {
         min = sentry.M;
     } else { //add limit according the type
-        if (sentry.T == "B") min = -127
-        else if (sentry.T == "S") min = 0
-        else if (sentry.T == "A") min = 7
-        else if (sentry.T == "I") min = 0
+        if (sentry.T == "B") {
+            min = -127
+        } else if (sentry.T == "S") {
+            min = 0
+        } else if (sentry.T == "A") {
+            min = 7
+        } else if (sentry.T == "I") {
+            min = 0
+        }
     }
     if (typeof sentry.S !== 'undefined') {
         max = sentry.S;
     } else { //add limit according the type
-        if (sentry.T == "B") max = 255;
-        else if (sentry.T == "S") max = 255;
-        else if (sentry.T == "A") max = 15;
-        else if (sentry.T == "I") max = 2147483647;
+        if (sentry.T == "B") {
+            max = 255;
+        } else if (sentry.T == "S") {
+            max = 255;
+        } else if (sentry.T == "A") {
+            max = 15;
+        } else if (sentry.T == "I") {
+            max = 2147483647;
+        }
     }
     //list possible options if defined
     if (typeof sentry.O !== 'undefined') {
@@ -319,6 +373,7 @@ function create_setting_entry(sentry, vi) {
     vi++;
     return vi;
 }
+
 //check it is valid entry
 function is_setting_entry(sline) {
     if (typeof sline.T === 'undefined' || typeof sline.V === 'undefined' || typeof sline.P === 'undefined' || typeof sline.H === 'undefined') {
@@ -329,51 +384,72 @@ function is_setting_entry(sline) {
 
 function getFlag(i, j) {
     var flag = 0;
-    if (scl[i].type != "F") return -1;
-    if (scl[i].Options.length <= j) return -1;
+    if (scl[i].type != "F") {
+        return -1;
+    }
+    if (scl[i].Options.length <= j) {
+        return -1;
+    }
     flag = parseInt(scl[i].Options[j].id);
     return flag;
 }
 
 function getFlag_description(i, j) {
-    if (scl[i].type != "F") return -1;
-    if (scl[i].Options.length <= j) return -1;
+    if (scl[i].type != "F") {
+        return -1;
+    }
+    if (scl[i].Options.length <= j) {
+        return -1;
+    }
     return scl[i].Options[j].display;
 }
 
-function setting(i,j) {
+function setting(i, j) {
     return id('setting_' + i + "_" + j);
 }
+
 function setBtn(i, j, value) {
     id('btn_setting_' + i + "_" + j).className = "btn " + value;
 }
+
 function setStatus(i, j, value) {
     id('status_setting_' + i + "_" + j).className = "form-group " + value;
 }
+
 function setIcon(i, j, value) {
     id('icon_setting_' + i + "_" + j).className = "form-control-feedback " + value;
 }
+
 function setIconHTML(i, j, value) {
     id('icon_setting_' + i + "_" + j).innerHTML = value;
 }
 
 function setting_revert_to_default(i, j) {
-    if (typeof j == 'undefined') j = 0;
+    if (typeof j == 'undefined') {
+        j = 0;
+    }
     if (scl[i].type == "F") {
         var flag = getFlag(i, j);
         var enabled = 0;
         var tmp = parseInt(defval(i));
         tmp |= flag;
-        if (tmp == parseInt(defval(i))) setting(i, j).value = "1";
-        else setting(i,j).value = "0";
-    } else setting(i, j).value = defval(i)
+        if (tmp == parseInt(defval(i))) {
+            setting(i, j).value = "1";
+        } else {
+            setting(i, j).value = "0";
+        }
+    } else {
+        setting(i, j).value = defval(i)
+    }
     setBtn(i, j, "btn-default");
     setStatus(i, j, "form-group has-feedback");
     setIconHTML(i, j, "");
 }
 
 function settingsetvalue(i, j) {
-    if (typeof j == 'undefined') j = 0;
+    if (typeof j == 'undefined') {
+        j = 0;
+    }
     //remove possible spaces
     value = setting(i, j).value.trim();
     //Apply flag here
@@ -386,7 +462,9 @@ function settingsetvalue(i, j) {
         }
         value = tmp;
     }
-    if (value == defval(i)) return;
+    if (value == defval(i)) {
+        return;
+    }
     //check validity of value
     var isvalid = setting_check_value(value, i);
     //if not valid show error
@@ -517,6 +595,7 @@ function define_esp_role(index) {
             break;
     }
 }
+
 function define_esp_role_from_pos(pos) {
     define_esp_role(get_index_from_eeprom_pos(pos))
 }
