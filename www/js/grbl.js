@@ -97,6 +97,7 @@ function control_changeaxis() {
 
 function init_grbl_panel() {
     grbl_set_probe_detected(false);
+    enablePolling();
 }
 
 function grbl_clear_status() {
@@ -244,17 +245,17 @@ function reportPolled() {
 }
 
 function onReportType(e) {
-    switch (e.value) {
-        case 'none':
-            reportNone();
-            break;
-        case 'auto':
-            tryAutoReport()
-            break;
-        case 'poll':
-            reportPolled();
-            break;
-    }
+    // switch (e.value) {
+    //     case 'none':
+    //         reportNone();
+    //         break;
+    //     case 'auto':
+    //         tryAutoReport()
+    //         break;
+    //     case 'poll':
+    //         reportPolled();
+    //         break;
+    // }
 }
 
 function onstatusIntervalChange() {
@@ -281,7 +282,8 @@ function parseGrblStatus(response) {
         lineNumber: undefined,
         flood: undefined,
         mist: undefined,
-        pins: undefined
+        pins: undefined,
+        mpgs: undefined
     };
     response = response.replace('<', '').replace('>', '');
     var fields = response.split('|');
@@ -369,7 +371,10 @@ function parseGrblStatus(response) {
                 // pin status
                 grbl.pins = value;
                 break;
-            default:
+             case "MPG":
+                grbl.mpgs = parseInt(value);
+                break;
+           default:
                 // ignore other fields that might happen to be present
                 break;
         }

@@ -272,9 +272,9 @@ function applypreferenceslist() {
     if (statusIntervalChanged) {
         id('statusInterval_check').value = statusIntervalValue;
     }
-    if (autoReportChanged || statusIntervalChanged) {
-        onAutoReportIntervalChange();
-    }
+    // if (autoReportChanged || statusIntervalChanged) {
+    //     onAutoReportIntervalChange();
+    // }
 
     id('posInterval_check').value = parseInt(preferenceslist[0].interval_positions);
     id('control_xy_velocity').value = parseInt(preferenceslist[0].xy_feedrate);

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
+  <component name="CMakeSettings">
+    <configurations />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4072560f-bb28-43a6-a519-faec558a4038" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html.gz" beforeDir="false" afterPath="$PROJECT_DIR$/index.html.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/js/tablet.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/tablet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/sub/tablettab.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/sub/tablettab.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="G3PluginsProjectSettings">
+    <appliedSettings>
+      <entry key="LinkifyInternalShortlinks" value="true" />
+    </appliedSettings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <OptionsSetting value="false" id="Update" />
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4072560f-bb28-43a6-a519-faec558a4038" name="Changes" comment="" />
+      <created>1685751942034</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1685751942034</updated>
+      <workItem from="1685751944096" duration="1652000" />
+      <workItem from="1685753863547" duration="243000" />
+      <workItem from="1685754144093" duration="2253000" />
+      <workItem from="1685758063803" duration="7942000" />
+      <workItem from="1685807464448" duration="482000" />
+      <workItem from="1685808059846" duration="58588000" />
+      <workItem from="1702922658371" duration="600000" />
+      <workItem from="1703201092809" duration="310000" />
+      <workItem from="1703202476078" duration="235000" />
+      <workItem from="1703384779073" duration="317000" />
+      <workItem from="1703655899895" duration="26546000" />
+      <workItem from="1704135253423" duration="3587000" />
+      <workItem from="1704340545832" duration="621000" />
+      <workItem from="1704517398468" duration="599000" />
+      <workItem from="1704686470836" duration="1427000" />
+      <workItem from="1704774520031" duration="6466000" />
+      <workItem from="1705991334971" duration="630000" />
+      <workItem from="1706073920497" duration="3174000" />
+      <workItem from="1706250953327" duration="4696000" />
+      <workItem from="1707086264171" duration="774000" />
+      <workItem from="1709263812609" duration="5087000" />
+    </task>
+    <task id="LOCAL-00001" summary="UI for Lathe.">
+      <created>1703201156726</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1703201156726</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Reformat.">
+      <created>1703729282536</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1703729282536</updated>
+    </task>
+    <task id="LOCAL-00003" summary="a">
+      <created>1703832731345</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1703832731345</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Reformat.">
+      <created>1703833335836</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1703833335836</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Reformat.">
+      <created>1703833358133</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1703833358133</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Modify the tablet tab to look like a DRO and add support for disabling MPGs.">
+      <created>1703902188031</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1703902188031</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Modify the tablet tab to look like a DRO and add support for disabling MPGs.">
+      <created>1703905601457</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1703905601457</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Modify the tablet tab to look like a DRO and add support for disabling MPGs.">
+      <created>1709275479470</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1709275479470</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Modify the tablet tab to look like a DRO and add support for disabling MPGs.">
+      <created>1709275576573</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1709275576573</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Modify the tablet tab to look like a DRO and add support for disabling MPGs.">
+      <created>1709275594724</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1709275594724</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="mill" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="mill" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="revamp" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="UI for Lathe." />
+    <MESSAGE value="a" />
+    <MESSAGE value="Reformat." />
+    <MESSAGE value="Modify the tablet tab to look like a DRO and add support for disabling MPGs." />
+    <option name="LAST_COMMIT_MESSAGE" value="Modify the tablet tab to look like a DRO and add support for disabling MPGs." />
+  </component>
+</project>

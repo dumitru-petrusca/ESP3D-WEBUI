@@ -204,6 +204,18 @@ function build_HTML_setting_list(filter) {
     id('settings_list_data').innerHTML = content;
 }
 
+// {index: 55, F: 'tree', label: '/axes/x/mpg/max_rate_mm_per_min',
+// defaultvalue: '500.000', cmd: '[ESP401]P=/axes/x/mpg/max_rate_mm_per_min T=R V=', …}
+function has_setting(name) {
+    if (do_not_build_settings) return false;
+    for (let i = 0; i < scl.length; i++) {
+        if (scl[i].pos === name) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function setting_check_value(value, i) {
     var valid = true;
     var entry = scl[i];

@@ -100,6 +100,21 @@ zeroAxis = function (axis) {
     setAxisByValue(axis, 0);
 }
 
+// Unit conversion factor - depends on both $13 setting and parser units
+factor = function () {
+    switch (modal.units) {
+        case 'G20':
+            return grblReportingUnits === 0 ? 1 / 25.4 : 1.0;
+        case 'G21':
+            return grblReportingUnits === 0 ? 1.0 : 25.4;
+    }
+}
+
+halfAxis = function (axisName, axisIndex) {
+    tabletClick();
+    setAxisByValue(axisName, WPOS[axisIndex] / factor() / 2);
+}
+
 toggleUnits = function () {
     tabletClick();
     sendCommand(modal.units == 'G21' ? 'G20' : 'G21');
@@ -141,6 +156,11 @@ setAxisByValue = function (axis, coordinate) {
     tabletClick();
     var cmd = 'G10 L20 P0 ' + axis + coordinate;
     sendCommand(cmd);
+}
+
+toggleAxisLock = function (axis) {
+    tabletClick();
+    sendCommand('$TL' + axis);
 }
 
 setAxis = function (axis, field) {
@@ -385,6 +405,9 @@ var runTime = 0;
 
 function setButton(name, isEnabled, color, text) {
     var button = id(name);
+    if (!button) {
+        console.log("Cannot find button: " + name);
+    }
     button.disabled = !isEnabled;
     button.style.backgroundColor = color;
     button.innerText = text;
@@ -617,6 +640,15 @@ function tabletGrblState(grbl, response) {
     MPOS.forEach(function (pos, index) {
         setTextContent('mpos-' + axisNames[index], Number(pos * factor).toFixed(index > 2 ? 2 : digits));
     });
+
+    // Update the MPG buttons
+    for (let i = 0; i < 3; i++) {  // TODO-dp this should only treat the defined axes
+        let mpgEnabled = has_setting("/axes/" + axisNames[i].toLowerCase() + "/mpg/pulses_per_rev");
+        let mpgUnlocked = grbl.mpgs & (1 << i);
+        let color = !mpgEnabled ? gray : (mpgUnlocked ? green : red);
+        let text = !mpgEnabled ? "N/A" : (mpgUnlocked ? "MPG ON" : "MPG OFF");
+        setButton("toggleAxisLock" + axisNames[i].toUpperCase(), mpgEnabled, color, text);
+    }
 }
 
 function addOption(selector, name, value, isDisabled, isSelected) {
@@ -1099,7 +1131,8 @@ function bodyHeight() {
 }
 
 function controlHeight() {
-    return heightId('nav-panel') + heightId('axis-position') + heightId('setAxis') + heightId('control-pad');
+    return heightId('nav-panel') + heightId('axis-position') + heightId('setAxis')
+        + heightId('control-pad');
 }
 
 function setBottomHeight() {

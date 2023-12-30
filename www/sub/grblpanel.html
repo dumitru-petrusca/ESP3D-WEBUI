@@ -10,19 +10,19 @@
                     <label translate>Reports:</label>
 
                     <span>
-                        <input type="radio" id="report_none" name="status_report" value="none" onchange="onReportType(this)" />
+                        <input type="radio" id="report_none" name="status_report" value="none" />
                         <label for="report_none" translate>None</label>
                     </span>
                     <span>
-                        <input type="radio" id="report_auto" name="status_report" value="auto" onchange="onReportType(this)" />
+                        <input type="radio" id="report_auto" name="status_report" value="auto" />
                         <label for="report_auto" translate>Auto</label>
-                        <input class="w4" type="number" min="50" max="30000" id="autoReportInterval" value=50 onchange="onAutoReportIntervalChange()" />
+                        <input class="w4" type="number" min="50" max="30000" id="autoReportInterval" value=50 />
                         <label for="autoReportInterval" translate>ms</label>
                     </span>
                     <span>
-                        <input type="radio" id="report_poll" name="status_report" value="poll" onchange="onReportType(this)" />
+                        <input type="radio" id="report_poll" name="status_report" value="poll" />
                         <label for="report_poll" translate>Poll</label>
-                        <input class="w4" type="number" min="0.1" max="99" id="statusInterval_check" value=3 onchange="onstatusIntervalChange()" />
+                        <input class="w4" type="number" min="0.05" max="99" id="statusInterval_check" value=0.05 />
                         <label for="statusInterval_check" translate>sec</label>
                     </span>
                 </div>

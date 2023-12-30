@@ -1,8 +1,16 @@
 <div id="tablettab" class="tabcontent tablettab">
+
+  <!--  First Line-->
   <div class="nav-panel" id="nav-panel">
-    <div class="col-1 info-button" id="time-of-day">
+    <div class="col-1 info-button" id="time-of-day"></div>
+    <div class="col-1">
+      <button type="button" class="btn btn-default btn-units" id="units" title="Toggle Units"
+              onclick="toggleUnits()">
+        mm
+      </button>
     </div>
-    <div class="col-4">
+    <div class="col-1 axis-label" id="wpos-label">WPos</div>
+    <div class="col-2">
       <div class="active-state" id="active-state"></div>
     </div>
     <div class="col-2">
@@ -17,10 +25,8 @@
         Pause
       </button>
     </div>
-    <div class="col-1 info-button" id="line">
-    </div>
-    <div class="col-1 info-button" id="runtime">
-    </div>
+    <div class="col-1 info-button" id="line"></div>
+    <div class="col-1 info-button" id="runtime"></div>
     <div class="col-1">
       <button type="button" class="btn btn-default dropdown-toggle" id="btn-dropdown"
               onclick="toggleDropdown()">
@@ -29,6 +35,8 @@
       </button>
     </div>
   </div>
+
+  <!--  Menu-->
   <div style="display:block">
     <div class="btn-group btn-group-justified" style="float:right; width:20%">
       <li class="dropdown">
@@ -61,93 +69,175 @@
       </li>
     </div>
   </div>
+
+  <!--  X Y Z lines-->
   <div class="axis-position" id="axis-position">
-    <div class="col-1 pos-name" id="wpos-label">
-      WPos
+
+    <div class="col-12">
+      <div class="col-1 axis-label">X</div>
+      <div class="col-3">
+        <button class="btn btn-default position" id="wpos-x">
+          0.000
+        </button>
+      </div>
+      <div class="col-1">
+        <div class="mposition" id="mpos-x">
+          0.000
+        </div>
+      </div>
+      <div class="col-1">
+        <button type="button" class="btn btn-default btn-zero" title="Set X to 0"
+                onclick="zeroAxis('X')">
+          X = 0
+        </button>
+      </div>
+      <div class="col-1"></div>
+      <div class="col-1">
+        <button type="button" class="btn btn-default btn-goto" title="Goto 0 in X"
+                onclick="goAxisByValue('X', 0)">
+          X&#8594;0
+        </button>
+      </div>
+      <div class="col-1"></div>
+      <div class="col-1">
+        <button type="button" class="btn btn-default btn-goto" title="1/2" onclick="halfAxis('X', 0)">
+          1/2
+        </button>
+      </div>
+      <div class="col-1"></div>
+      <div class="col-1">
+        <button type="button" class="btn btn-default btn-goto" title="Toggle X Lock"
+                onclick="toggleAxisLock('X')" id="toggleAxisLockX">
+          Lock
+        </button>
+      </div>
     </div>
-    <div class="col-11">
+
+    <div class="col-12">
+      <div class="col-1 axis-label">Y</div>
       <div class="col-3">
-        <div class="col-1 axis-label">X</div>
-        <div class="col-6">
-          <button class="btn btn-default position" id="wpos-x">
-            0.000
-          </button>
-        </div>
-        <div class="col-5">
-          <div class="mposition" id="mpos-x">
-            0.000
-          </div>
+        <button class="btn btn-default position" id="wpos-y">
+          0.000
+        </button>
+      </div>
+      <div class="col-1">
+        <div class="mposition" id="mpos-y">
+          0.000
         </div>
       </div>
+      <div class="col-1">
+        <button type="button" class="btn btn-default btn-zero" title="Set Y to 0"
+                onclick="zeroAxis('Y')">
+          Y = 0
+        </button>
+      </div>
+      <div class="col-1"></div>
+      <div class="col-1">
+        <button type="button" class="btn btn-default btn-goto" title="Goto 0 in Y"
+                onclick="goAxisByValue('Y', 0)">
+          Y&#8594;0
+        </button>
+      </div>
+      <div class="col-1"></div>
+      <div class="col-1">
+        <button type="button" class="btn btn-default btn-goto" title="1/2" onclick="halfAxis('Y', 1)">
+          1/2
+        </button>
+      </div>
+      <div class="col-1"></div>
+      <div class="col-1">
+        <button type="button" class="btn btn-default btn-goto" title="Toggle Y Lock"
+                onclick="toggleAxisLock('Y')" id="toggleAxisLockY">
+          Lock
+        </button>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="col-1 axis-label">Z</div>
       <div class="col-3">
-        <div class="col-1 axis-label">Y</div>
-        <div class="col-6">
-          <button class="btn btn-default position" id="wpos-y">
-            0.000
-          </button>
-        </div>
-        <div class="col-5">
-          <div class="mposition" id="mpos-y">
-            0.000
-          </div>
+        <button class="btn btn-default position" id="wpos-z">
+          0.000
+        </button>
+      </div>
+      <div class="col-1">
+        <div class="mposition" id="mpos-z">
+          0.000
         </div>
       </div>
-      <div class="col-3">
-        <div class="col-1 axis-label">Z</div>
-        <div class="col-6">
-          <button class="btn btn-default position" id="wpos-z">
-            0.000
-          </button>
-        </div>
-        <div class="col-5">
-          <div class="mposition" id="mpos-z">
-            0.000
-          </div>
+      <div class="col-1">
+        <button type="button" class="btn btn-default btn-zero" title="Set Z to 0"
+                onclick="zeroAxis('Z')">
+          Z = 0
+        </button>
+      </div>
+      <div class="col-1"></div>
+      <div class="col-1">
+        <button type="button" class="btn btn-default btn-goto" title="Goto 0 in Z"
+                onclick="goAxisByValue('Z', 0)">
+          Z&#8594;0
+        </button>
+      </div>
+      <div class="col-1"></div>
+      <div class="col-1">
+        <button type="button" class="btn btn-default btn-goto" title="1/2" onclick="halfAxis('Z', 2)">
+          1/2
+        </button>
+      </div>
+      <div class="col-1"></div>
+      <div class="col-1">
+        <button type="button" class="btn btn-default btn-goto" title="Toggle Z Lock"
+                onclick="toggleAxisLock('Z')" id="toggleAxisLockZ">
+          Lock
+        </button>
+      </div>
+    </div>
+
+    <div class="col-3 hidden">
+      <div class="col-1 axis-label">A</div>
+      <div class="col-6">
+        <button class="btn btn-default position" id="wpos-a">
+          0.000
+        </button>
+      </div>
+      <div class="col-5">
+        <div class="mposition" id="mpos-a">
+          0.000
         </div>
       </div>
-      <div class="col-3">
-        <div class="col-1 axis-label">A</div>
-        <div class="col-6">
-          <button class="btn btn-default position" id="wpos-a">
-            0.000
-          </button>
-        </div>
-        <div class="col-5">
-          <div class="mposition" id="mpos-a">
-            0.000
-          </div>
+    </div>
+    <div class="col-0 hidden">
+      <div class="col-1 axis-label">B</div>
+      <div class="col-6">
+        <button class="btn btn-default position" id="wpos-b">
+          0.000
+        </button>
+      </div>
+      <div class="col-5">
+        <div class="mposition" id="mpos-b">
+          0.000
         </div>
       </div>
-      <div class="col-0 hidden">
-        <div class="col-1 axis-label">B</div>
-        <div class="col-6">
-          <button class="btn btn-default position" id="wpos-b">
-            0.000
-          </button>
-        </div>
-        <div class="col-5">
-          <div class="mposition" id="mpos-b">
-            0.000
-          </div>
-        </div>
+    </div>
+    <div class="col-0 hidden">
+      <div class="col-1 axis-label">C</div>
+      <div class="col-6">
+        <button class="btn btn-default position" id="wpos-c">
+          0.000
+        </button>
       </div>
-      <div class="col-0 hidden">
-        <div class="col-1 axis-label">C</div>
-        <div class="col-6">
-          <button class="btn btn-default position" id="wpos-c">
-            0.000
-          </button>
-        </div>
-        <div class="col-5">
-          <div class="mposition" id="mpos-c">
-            0.000
-          </div>
+      <div class="col-5">
+        <div class="mposition" id="mpos-c">
+          0.000
         </div>
       </div>
     </div>
   </div>
+
   <div style="display:block"></div>
-  <div id="setAxis" class="axis-position">
+
+  <!--  Second Line -->
+  <div id="setAxis" class="axis-position hidden">
     <div class="col-1">
       <button type="button" class="btn btn-default btn-units" id="units" title="Toggle Units"
               onclick="toggleUnits()">
@@ -226,9 +316,9 @@
       </div>
     </div>
   </div>
-  <div style="display:block"></div>
+
   <div class="control-pad" id="control-pad">
-    <div class="middle-block jog-controls" id="jog-controls">
+    <div class="middle-block jog-controls hidden" id="jog-controls">
       <div class="jog-row">
         <div class="col-2 info-button" id="distance">
         </div>
@@ -467,6 +557,7 @@
         </div>
       </div>
     </div>
+
     <div style="display:block"></div>
 
     <div class="mdifiles" id="mdifiles">
@@ -510,7 +601,7 @@
             title="Upload New File"
             onclick="files_select_upload()"
         >
-          Upld
+          Upload
         </button>
       </div>
       <div class="col-1">
@@ -520,7 +611,7 @@
             title="Reload File"
             onclick="selectFile()"
         >
-          Load
+          Reload
         </button>
       </div>
       <div class="col-1">
@@ -530,16 +621,17 @@
             title="Refresh Files"
             onclick="files_refreshFiles(files_currentPath)"
         >
-          Refr
+          Refresh
         </button>
       </div>
     </div>
   </div>
+
   <div class="status" id="status">
     <div class="col-5 text-column">
-      <div class="messages" id="gcode-states"></div>
+      <div class="messages hidden" id="gcode-states"></div>
       <!-- <textarea class="messages" id="messages" rows="2" spellcheck="false" readonly>Serial Messages</textarea> -->
-      <div class="messages" id="messages">Serial Messages</div>
+      <div class="messages hidden" id="messages">Serial Messages</div>
 
       <textarea class="gcode" id="gcode" placeholder="GCode File Display" spellcheck="false""
       readonly>
