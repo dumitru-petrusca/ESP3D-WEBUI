@@ -1,11 +1,11 @@
 //Connect dialog
-function connectdlg(getFw) {
-    var modal = setactiveModal('connectdlg.html');
-    var get_FW = true;
-    if (modal == null) return;
+function connectdlg(connect) {
+  if (setactiveModal('connectdlg.html') != null) {
     showModal();
-    if (typeof getFw != 'undefined') get_FW = getFw;
-    if (get_FW) retryconnect();
+    if (connect) {
+      retryconnect();
+    }
+  }
 }
 
 function getFWdata(response) {
@@ -74,14 +74,14 @@ function getFWdata(response) {
         sublist = tlist[7].split(":");
         if (sublist[0].trim() == "hostname") esp_hostname = sublist[1].trim();
     }
-    
+
     if (tlist.length > 8) {
         sublist = tlist[8].split(":");
         if (sublist[0].trim() == "axis") {
             grblaxis = parseInt(sublist[1].trim());
         }
     }
-    
+
     if (async_webcommunication) {
         if (!!window.EventSource) {
             event_source = new EventSource('/events');
@@ -123,6 +123,6 @@ function retryconnect() {
     displayNone('connectbtn');
     displayNone('failed_connect_msg');
     displayBlock('connecting_msg');
-    var url = "/command?plain=" + encodeURIComponent("[ESP800]");;
+    let url = "/command?plain=" + encodeURIComponent("[ESP800]");
     SendGetHttp(url, connectsuccess, connectfailed)
 }

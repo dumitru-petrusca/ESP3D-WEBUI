@@ -81,7 +81,7 @@ window.onload = function() {
     //to check if javascript is disabled like in anroid preview
     displayNone('loadingmsg');
     console.log("Connect to board");
-    connectdlg();
+    connectdlg(true);
     //ugly hack for IE
     console.log(navigator.userAgent);
     if (browser_is("IE")) {
@@ -92,6 +92,7 @@ window.onload = function() {
 };
 
 var wsmsg = "";
+var lastReportTime;
 
 function startSocket() {
     try {
@@ -118,6 +119,13 @@ function startSocket() {
         //Monitor_output_Update("[#]Error "+ e.code +" " + e.reason + "\n");
         console.log("ws error", e);
     };
+
+    setInterval(() => {
+      if ((new Date()).getTime() - lastReportTime > 2000) {
+        id('active-state').style.backgroundColor = red
+      }
+    }, 1000);
+
     ws_source.onmessage = function(e) {
         var msg = "";
         //bin
@@ -131,6 +139,8 @@ function startSocket() {
                     wsmsg = "";
                     msg = "";
                     Monitor_output_Update(thismsg);
+                    lastReportTime = (new Date()).getTime();
+                    id('active-state').style.backgroundColor = green
                     process_socket_response(thismsg);
                     if (!((thismsg.startsWith("<") || thismsg.startsWith("ok T:") || thismsg.startsWith("X:") || thismsg.startsWith("FR:") ||thismsg.startsWith("echo:E0 Flow"))))
                         console.log(thismsg);
@@ -274,7 +284,7 @@ function Disable_interface(lostconnection) {
     if (interval_ping != -1) clearInterval(interval_ping);
     //clear all waiting commands
     clear_cmd_list();
-    //no camera 
+    //no camera
     id('camera_frame').src = "";
     //No auto check
     on_autocheck_position(false);
@@ -358,10 +368,10 @@ function update_UI_firmware_target() {
     SETTINGS_AP_MODE = 2;
     SETTINGS_STA_MODE = 1;
 
-    if (typeof id('fwName') != "undefined") id('fwName').innerHTML = fwName;
+    // if (typeof id('fwName') != "undefined") id('fwName').innerHTML = fwName;
     //SD image or not
-    if (direct_sd && typeof id('showSDused') != "undefined") id('showSDused').innerHTML = "<svg width='1.3em' height='1.2em' viewBox='0 0 1300 1200'><g transform='translate(50,1200) scale(1, -1)'><path  fill='#777777' d='M200 1100h700q124 0 212 -88t88 -212v-500q0 -124 -88 -212t-212 -88h-700q-124 0 -212 88t-88 212v500q0 124 88 212t212 88zM100 900v-700h900v700h-900zM500 700h-200v-100h200v-300h-300v100h200v100h-200v300h300v-100zM900 700v-300l-100 -100h-200v500h200z M700 700v-300h100v300h-100z' /></g></svg>";
-    else id('showSDused').innerHTML = "";
+    // if (direct_sd && typeof id('showSDused') != "undefined") id('showSDused').innerHTML = "<svg width='1.3em' height='1.2em' viewBox='0 0 1300 1200'><g transform='translate(50,1200) scale(1, -1)'><path  fill='#777777' d='M200 1100h700q124 0 212 -88t88 -212v-500q0 -124 -88 -212t-212 -88h-700q-124 0 -212 88t-88 212v500q0 124 88 212t212 88zM100 900v-700h900v700h-900zM500 700h-200v-100h200v-300h-300v100h200v100h-200v300h300v-100zM900 700v-300l-100 -100h-200v500h200z M700 700v-300h100v300h-100z' /></g></svg>";
+    // else id('showSDused').innerHTML = "";
     return fwName;
 }
 
@@ -385,7 +395,7 @@ function initUI() {
     //update FW version
     if (typeof id('FW_VERSION') != "undefined") id('FW_VERSION').innerHTML = fw_version;
     // Get the element with id="defaultOpen" and click on it
-    id("maintablink").click();
+    id("tablettablink").click();
 
     if (typeof id("grblcontroltablink") !== 'undefined') {
         id("grblcontroltablink").click();
@@ -408,7 +418,7 @@ function initUI_2() {
 
 function initUI_3() {
     AddCmd(display_boot_progress);
-    //init panels 
+    //init panels
     console.log("Get macros");
     init_controls_panel();
     init_grbl_panel();

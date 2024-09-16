@@ -604,8 +604,9 @@ function tabletGrblState(grbl, response) {
             (modal.units == 'G21' ? ' mm/min' : ' in/min');
 
         stateText = rateText + " " + spindleSpeed + " " + spindleDirection;
+    } else if (stateName == "Idle") {
+        stateText = "Manual"
     } else {
-        // var stateText = errorText == 'Error' ? "Error: " + errorMessage : stateName;
         stateText = stateName;
     }
     setText('active-state', stateText);

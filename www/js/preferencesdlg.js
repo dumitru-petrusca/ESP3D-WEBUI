@@ -173,11 +173,11 @@ function applypreferenceslist() {
                     }
                 }
             } else {
-                id("maintablink").click();
+                id("tablettablink").click();
                 displayNone('camtablink');
             }
         } else {
-            id("maintablink").click();
+            id("tablettablink").click();
             displayNone('camtablink');
         }
         if (!camoutput) {

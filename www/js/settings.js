@@ -2,7 +2,7 @@ var scl = []; // setting_configList
 var setting_error_msg = "";
 var setting_lasti = -1;
 var setting_lastj = -1;
-var current_setting_filter = 'nvs';
+var current_setting_filter = 'tree';
 var setup_is_done = false;
 var do_not_build_settings = false;
 

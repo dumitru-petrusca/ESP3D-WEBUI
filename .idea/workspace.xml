@@ -13,8 +13,14 @@
     <list default="true" id="4072560f-bb28-43a6-a519-faec558a4038" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html.gz" beforeDir="false" afterPath="$PROJECT_DIR$/index.html.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/js/connectdlg.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/connectdlg.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/js/preferencesdlg.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/preferencesdlg.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/js/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/settings.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/js/tablet.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/tablet.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/sub/tablettab.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/sub/tablettab.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/js/tabs.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/js/tabs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/sub/connectdlg.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/sub/connectdlg.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/sub/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/sub/navbar.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +51,8 @@
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "node.js.selected.package.tslint": "(autodetect)",
+    "ts.external.directory.path": "/Users/petrusca/Library/Application Support/JetBrains/CLion_Base2022.3/CLion.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external"
   }
 }]]></component>
   <component name="TaskManager">
@@ -147,7 +154,14 @@
       <option name="project" value="LOCAL" />
       <updated>1709275594724</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Modify the tablet tab to look like a DRO and add support for disabling MPGs.">
+      <created>1726419501734</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1726419501734</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
